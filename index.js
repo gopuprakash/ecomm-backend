@@ -8,6 +8,7 @@ const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 4000;
 const authRouter = require('./routes/authRoute');
 const productRouter = require("./routes/productRoute");
+const blogRouter = require("./routes/blogRoute");
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const { notFound, errorHandler } = require('./middlewares/errorHandler');
@@ -29,6 +30,8 @@ app.use(morgan('dev'));
 app.use('/api/user', authRouter);
 //Define Product API root
 app.use('/api/product', productRouter);
+//Define Blog API root
+app.use('/api/blog', blogRouter);
 
 //middlewares
 app.use(notFound)
