@@ -69,17 +69,18 @@ var productSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    images: {
-      type: Array,
-    },
-    color: {
-      type: String,
-    },
-    size: {
-      type: String,
-    },
+    images: [],
+    color: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Color",
+      }
+    ],
+    size: [],
+    tags: [],
     brand: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Brand",
     },
     overallrating: {
       type: Number,
@@ -88,6 +89,7 @@ var productSchema = new mongoose.Schema(
     ratings: [
       {
         star: Number,
+        comment: String,
         postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       },
     ],

@@ -1,13 +1,35 @@
 const express = require("express");
-const { createProduct, deleteProduct, getallProducts, getProduct, updateProduct } = require("../controller/productCtrl")
+const {
+  createProduct,
+  deleteProduct,
+  getallProducts,
+  getProduct,
+  updateProduct,
+  addToWishlist,
+  rateProduct,
+  uploadImages,
+} = require("../controller/productCtrl");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware");
-
+const {
+  uploadPhoto,
+  productImgResize,
+} = require("../middlewares/uploadImages");
 const router = express.Router();
 
-router.post("/create-product", authMiddleware, isAdmin, createProduct);
+router.post("/", authMiddleware, isAdmin, createProduct);
 router.delete("/:_id", authMiddleware, deleteProduct);
-router.get("/all-products", authMiddleware, isAdmin, getallProducts);
-router.get("/:_id", authMiddleware, getProduct);
-router.put("/update-product", authMiddleware, isAdmin, updateProduct);
+router.get("/", getallProducts);
+router.get("/:_id", getProduct);
+router.put("/", authMiddleware, isAdmin, updateProduct);
+router.put("/wishlist", authMiddleware, addToWishlist);
+router.put("/rate-product", authMiddleware, rateProduct);
+router.put(
+  "/upload/:id", 
+  authMiddleware,
+  isAdmin,
+  uploadPhoto.array("images", 10),
+  productImgResize,
+  uploadImages
+);
 
-module.exports = router;
+module.exports = router; 

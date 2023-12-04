@@ -1,6 +1,7 @@
 const mongoose = require("mongoose"); // Erase if already required
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
+const Address = require("../");
 
 // Declare the Schema of the Mongo model
 var userSchema = new mongoose.Schema(
@@ -49,6 +50,13 @@ var userSchema = new mongoose.Schema(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    shippingaddress: {
+      type: mongoose.Schema.Types.ObjectId, ref: "Address",
+    },
+    billingaddress: {
+      type: mongoose.Schema.Types.ObjectId, ref: "Address",
+    },
+    
   },
   {
     timestamps: true,
